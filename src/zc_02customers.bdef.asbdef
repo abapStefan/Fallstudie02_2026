@@ -1,0 +1,31 @@
+projection implementation in class ZBP_C_02CUSTOMERS unique;
+strict ( 2 );
+extensible;
+use draft;
+use side effects;
+define behavior for ZC_02CUSTOMERS alias Customers
+extensible
+use etag
+{
+  use create;
+  use update;
+//  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+  use association _Orders { create; }
+
+}
+
+define behavior for ZC_02ORDERS alias Orders
+{
+//  use create;
+  use update;
+  use delete;
+
+  use association _Customers;
+}

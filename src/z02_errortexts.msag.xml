@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>Z02_ERRORTEXTS</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Fehlertexte für alle Tabellen.</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z02_ERRORTEXTS</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>All fields except “Notes” are required.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z02_ERRORTEXTS</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Invalid country code [&amp;1].</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z02_ERRORTEXTS</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Customer ID &amp;1 is invalid. Must start with &apos;C&apos; followed by 5 digits.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z02_ERRORTEXTS</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Order ID &amp;1 is invalid. Must start with &apos;O&apos; followed by 6 digits.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z02_ERRORTEXTS</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Quantity must be greater 0.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z02_ERRORTEXTS</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Material-ID &amp;1 doesn&apos;t exist.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z02_ERRORTEXTS</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Status is undefined.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

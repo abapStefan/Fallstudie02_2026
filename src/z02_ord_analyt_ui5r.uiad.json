@@ -1,0 +1,34 @@
+{
+  "formatVersion": "2",
+  "header": {
+    "description": "Reporting",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD",
+    "targetMappingTitle": "Orders Analytics"
+  },
+  "ui5AppDetails": {
+    "appId": "z02.orders.analytics"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_DDB5687E9B313240C742B5F5611D5148A126A10B_TM",
+    "semanticObject": "Orders",
+    "action": "analyze",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_DDB5687E9B313240C742B5F5611D5148A126A10B_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "Orders Analytics"
+      }
+    }
+  ]
+}

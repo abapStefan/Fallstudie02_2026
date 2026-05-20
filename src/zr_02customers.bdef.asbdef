@@ -1,0 +1,170 @@
+managed implementation in class ZBP_R_02CUSTOMERS unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZR_02CUSTOMERS alias Customers
+persistent table z02customers
+extensible
+draft table z02customers_d
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master ( global )
+early numbering
+{
+  field ( mandatory : create )
+  //  CustomerID,
+  FirstName,
+  LastName;
+
+  field ( readonly )
+  CustomerID,
+  CreatedBy,
+  CreatedAt,
+  LocalLastChangedBy,
+  LocalLastChangedAt,
+  LastChangedAt;
+
+  //field ( readonly : update )
+  //CustomerID;
+
+  create  ( authorization : global );
+  update ( authorization : none );
+  delete ( authorization : none );
+
+
+
+
+  validation CheckCharacterFields on save { create; update; }
+  validation validateCustomerID on save { create; field CustomerID; }
+
+  side effects
+  {
+    field CustomerID affects messages;
+  }
+
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  //  draft determine action Prepare;
+
+  // DRAFT PREPARE ACTION: The 'Gatekeeper' Validation
+  // This action is automatically called by the framework during the transition
+  // from 'Draft' to 'Active' (Saving), or manually triggered via Side Effects.
+  // It centralizes all checks to ensure the entire business object is consistent.
+  draft determine action Prepare
+  {
+    //    Validation for the root entity (Customers) character fields
+    validation CheckCharacterFields;
+
+    //    Ensures the Customer ID follows the specific naming convention
+    validation validateCustomerID;
+
+    //    CROSS-ENTITY VALIDATION: Triggers the check in the child entity (Orders).
+    //    Even though the logic is defined in the child handler, it must be
+    //    explicitly listed here to be part of the 'Save' and 'Side Effect' sequence.
+    validation Orders~validateOrderData;
+
+  }
+
+  mapping for z02customers corresponding extensible
+    {
+      CustomerID         = CUSTOMER_ID;
+      FirstName          = FIRST_NAME;
+      LastName           = LAST_NAME;
+      PhoneNumber        = PHONE_NUMBER;
+      Street             = STREET;
+      PostalCode         = POSTAL_CODE;
+      City               = CITY;
+      Country            = COUNTRY;
+      Notes              = NOTES;
+      CreatedBy          = CREATED_BY;
+      CreatedAt          = CREATED_AT;
+      LocalLastChangedBy = LOCAL_LAST_CHANGED_BY;
+      LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+      LastChangedAt      = LAST_CHANGED_AT;
+    }
+
+  // This defines the path from the Parent to the Child.
+  // with draft: It allows us to create and edit Orders while the Customer is still in a "Draft" state.
+  // Without this, the system would force us to "Save" the Customer to the database before we could even add a single line item.
+  // It ensures that when we click "Create" on an Order in the UI, that record is placed in the Draft Table (z02orders_d) rather than the persistent table.
+  association _Orders { create ( authorization : global ); with draft; }
+
+}
+
+
+
+
+
+define behavior for ZR_02ORDES alias Orders
+persistent table z02orders
+extensible
+draft table z02orders_d
+lock dependent by _Customers
+authorization dependent by _Customers
+etag master LastChangedAt
+early numbering
+{
+
+  //  create;
+  update;
+  delete;
+
+  // This defines the path from the Child back to the Parent.
+  // with draft: This is crucial for Data Consistency during validation and calculation.
+  association _Customers { with draft; }
+
+  //field ( mandatory : create )
+  //Status;
+
+  field ( readonly )
+  OrderId,
+  CustomerId,
+  OrderDate,
+  Amount,
+  Currency,
+  CreatedBy,
+  CreatedAt,
+  LocalLastChangedBy,
+  LocalLastChangedAt,
+  LastChangedAt;
+
+  validation validateOrderData on save { create; field OrderId; }
+  validation validateMatIdAndQuantity on save { create; update; field MaterialId, Quantity; }
+
+
+
+  //  SIDE EFFECTS: Immediate UI Feedback
+  //  This block tells the Fiori Elements UI to communicate with the backend
+  //  as soon as the user finishes typing in the OrderId field (on blur/tab out).
+  //  It triggers the 'Prepare' action automatically so validations run
+  //  before the user even clicks the 'Save' button.
+  side effects
+  {
+    field OrderId affects messages;
+    field MaterialId affects messages, field Amount, field Currency, field OrderDate;
+    field Quantity affects field Amount, field OrderDate;
+  }
+
+  determination calculateAmount on modify { field Quantity, MaterialId; }
+
+
+  mapping for z02orders corresponding // extensible
+    {
+      OrderId            = order_id;
+      CustomerId         = customer_id;
+      MaterialId         = material_id;
+      Quantity           = quantity;
+      OrderDate          = order_date;
+      Amount             = amount;
+      Currency           = currency;
+      Status             = status;
+      CreatedBy          = created_by;
+      CreatedAt          = created_at;
+      LocalLastChangedBy = local_last_changed_by;
+      LocalLastChangedAt = local_last_changed_at;
+      LastChangedAt      = last_changed_at;
+    }
+}

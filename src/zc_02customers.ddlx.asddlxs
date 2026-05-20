@@ -1,0 +1,278 @@
+@Metadata.layer: #CORE
+//@UI.headerInfo.title.type: #STANDARD
+//@UI.headerInfo.title.value: 'CustomerID'
+//@UI.headerInfo.description.type: #STANDARD
+//@UI.headerInfo.description.value: 'CustomerID'
+@UI: {
+  headerInfo: {
+    typeName: 'Customer',
+    typeNamePlural: 'Customers',
+    title: { type: #STANDARD, value: 'Name' },
+//    title: { type: #STANDARD, value: 'LastName' },
+    description: {  value: 'CustomerID' }
+  }
+}
+
+annotate view ZC_02CUSTOMERS with
+{
+
+  @UI.facet: [ 
+             { id: 'General', 
+               type: #IDENTIFICATION_REFERENCE, 
+               label: 'Customers',
+                position: 10 }, 
+             
+               { id: 'Revenue1',
+                    type: #DATAPOINT_REFERENCE,
+                    purpose: #HEADER,
+                    label: 'Total Orders',
+                    targetQualifier: 'TotalOrders',
+                    position: 20
+                },  
+                
+                { id: 'Revenue2',
+                    type: #DATAPOINT_REFERENCE,
+                    purpose: #HEADER,
+                    label: 'Total Revenue',
+                    targetQualifier: 'TotalRevenue',
+                    position: 30
+                }, 
+            
+             { id: 'Orders', 
+               type: #LINEITEM_REFERENCE, 
+               targetElement: '_Orders', 
+               label: 'Orders',
+                position: 40
+             } 
+           ]
+           
+           
+           
+
+//  @UI.dataPoint: { title: 'Total Orders', qualifier: 'Revenue', visualization: #NUMBER }
+  @UI.dataPoint: { title: 'Total Orders', visualization: #NUMBER }
+  TotalOrders;
+
+  @UI.dataPoint: { title: 'Total Revenue' }
+  @EndUserText.label: 'Revenue'
+  TotalRevenue;
+  
+  //@Consumption.defaultValue: 'C00000'          
+  @UI.identification: [ {
+    position: 10 
+  } ]
+  @UI.lineItem: [ {
+    position: 10,
+    importance: #HIGH  
+  } ]
+  @UI.selectionField: [ {
+    position: 10 
+  } ]
+  CustomerID;
+  
+  @UI.fieldGroup: [
+  {
+    qualifier: 'General',
+    position: 10
+  }
+]
+  @UI.identification: [ {
+    position: 20 
+  } ]
+  @UI.lineItem: [ {
+    position: 20,
+    importance: #HIGH 
+  } ]
+  @UI.selectionField: [ {
+    position: 20 
+  } ]
+  FirstName;
+  
+  
+  @UI.fieldGroup: [
+  {
+    qualifier: 'General',
+    position: 20
+  }
+]
+  @UI.identification: [ {
+    position: 30 
+  } ]
+  @UI.lineItem: [ {
+    position: 30,
+    importance: #HIGH  
+  } ]
+  @UI.selectionField: [ {
+    position: 30 
+  } ]
+  LastName;
+  
+  @UI.identification: [ {
+    position: 40 
+  } ]
+  @UI.lineItem: [ {
+    position: 40 
+  } ]
+  @UI.selectionField: [ {
+    position: 40 
+  } ]
+  PhoneNumber;
+  
+  @UI.identification: [ {
+    position: 15 
+  } ]
+  @UI.lineItem: [ {
+    position: 50,
+    importance: #HIGH  
+  } ]
+  @UI.selectionField: [ {
+    position: 15 
+  } ]
+  Street;
+  
+  @UI.identification: [ {
+    position: 25 
+  } ]
+  @UI.lineItem: [ {
+    position: 60,
+    importance: #HIGH  
+  } ]
+  @UI.selectionField: [ {
+    position: 25 
+  } ]
+  PostalCode;
+  
+  @EndUserText.label: 'City'
+  @UI.identification: [ {
+    position: 35 , 
+    label: 'City',
+    importance: #HIGH 
+  } ]
+  @UI.lineItem: [ {
+    position: 70 , 
+    label: 'City',
+    importance: #HIGH 
+  } ]
+  @UI.selectionField: [ {
+    position: 35 
+  } ]
+  City;
+  
+  
+  
+  @Consumption.valueHelpDefinition: [
+      {
+        entity: {
+          name: 'i_country',
+          element: 'Country'
+        }
+      }
+    ]
+  @UI.identification: [ {
+    position: 80 
+  } ]
+  @UI.lineItem: [ {
+    position: 80,
+    importance: #HIGH  
+  } ]
+  @UI.selectionField: [ {
+    position: 80 
+  } ]
+  Country;
+  
+  @UI.identification: [ {
+    position: 90 
+  } ]
+  @UI.lineItem: [ {
+    position: 90
+  } ]
+  @UI.selectionField: [ {
+    position: 90 
+  } ]
+  Notes;
+  
+//  @UI.identification: [ {
+//    position: 100 
+//  } ]
+//  @UI.lineItem: [ {
+//    position: 100 
+//  } ]
+//  @UI.selectionField: [ {
+//    position: 100 
+//  } ]
+//  CreatedBy;
+//  
+//  @UI.identification: [ {
+//    position: 110 
+//  } ]
+//  @UI.lineItem: [ {
+//    position: 110 
+//  } ]
+//  @UI.selectionField: [ {
+//    position: 110 
+//  } ]
+//  CreatedAt;
+//  
+//  @UI.identification: [ {
+//    position: 120 
+//  } ]
+//  @UI.lineItem: [ {
+//    position: 120 
+//  } ]
+//  @UI.selectionField: [ {
+//    position: 120 
+//  } ]
+//  LocalLastChangedBy;
+//  
+//  @UI.identification: [ {
+//    position: 130 
+//  } ]
+//  @UI.lineItem: [ {
+//    position: 130 
+//  } ]
+//  @UI.selectionField: [ {
+//    position: 130 
+//  } ]
+//  LocalLastChangedAt;
+//  
+//  @UI.identification: [ {
+//    position: 140 
+//  } ]
+//  @UI.lineItem: [ {
+//    position: 140 
+//  } ]
+//  @UI.selectionField: [ {
+//    position: 140 
+//  } ]
+//  LastChangedAt;
+  
+  @EndUserText.label: '_BaseEntity'
+  @UI.identification: [ {
+    position: 150 , 
+    label: '_BaseEntity'
+  } ]
+  @UI.lineItem: [ {
+    position: 150 , 
+    label: '_BaseEntity'
+  } ]
+  @UI.selectionField: [ {
+    position: 150 
+  } ]
+  _BaseEntity;
+
+  
+  
+    @EndUserText.label: 'Total Revenue'
+  @UI.identification: [ {
+    position: 1 , 
+    label: 'Total Revenue'
+  } ]
+  @UI.lineItem: [ {
+    position: 1 , 
+    label: 'Total Revenue'
+  } ]
+  @UI.selectionField: [ {
+    position: 1 
+  } ]
+    _summary;
+}

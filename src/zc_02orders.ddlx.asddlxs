@@ -1,0 +1,59 @@
+@Metadata.layer: #CORE
+//@UI.headerInfo.title.type: #STANDARD
+//@UI.headerInfo.title.value: 'OrderID'
+//@UI.headerInfo.description.type: #STANDARD
+//@UI.headerInfo.description.value: 'OrderID'
+
+@UI: {
+  headerInfo: {
+    typeName: 'Order',
+    typeNamePlural: 'Orders',
+    title: { type: #STANDARD, value: 'OrderId' },
+    description: { type: #STANDARD, value: 'CustomerId' } // Shows Material ID in the header
+  }
+}
+annotate view ZC_02ORDERS with
+{
+  @UI.facet: [
+             { id: 'General',
+               type: #IDENTIFICATION_REFERENCE,
+               label: 'Order Details' }
+
+           ]
+
+  @UI: { lineItem: [{ position: 10 }], identification: [{ position: 10 }] }
+  OrderId;
+  @UI: { lineItem: [ { position: 20 } ], identification: [{ position: 20 }] }
+  CustomerId;
+  @UI: { lineItem:[ { position: 30 } ], identification: [{ position: 30 }] }
+  @UI.multiLineText: false
+  @Consumption.valueHelpDefinition: [{
+      entity: {
+        name: 'Z02_I_MATERIALS',
+        element: 'MaterialId'
+        }
+   }]
+  @Consumption.filter: { selectionType: #SINGLE }
+  MaterialId;
+  @UI: { lineItem: [ { position: 40 } ], identification: [{ position: 40 }] }
+  Quantity;
+  @UI: { lineItem: [ { position: 50 } ], identification: [{ position: 50 }] }
+  OrderDate;
+  @UI: { lineItem: [ { position: 60 } ], identification: [{ position: 60 }] }
+  Amount;
+  //    @UI: { lineItem: [ { position: 70 } ], identification: [{ position: 70 }] }
+  //    Currency;
+
+
+  @UI: { lineItem: [ { position: 70 } ], identification: [{ position: 70 }] }
+  @Consumption.valueHelpDefinition: [
+{
+  entity: {
+    name: 'Z02_I_STATUS',
+    element: 'Status'
+  }
+}
+  ]
+  Status;
+
+}
